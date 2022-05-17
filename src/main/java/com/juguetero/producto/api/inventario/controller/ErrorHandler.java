@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.juguetero.producto.api.inventario.dto.ErrorDto;
+import com.juguetero.producto.inventario.exception.InventarioCampoException;
 import com.juguetero.producto.inventario.exception.InventarioException;
 
 @ControllerAdvice
@@ -26,6 +27,12 @@ public class ErrorHandler {
 		fieldsEr.forEach(x -> msg.append(x.getField() + " " + x.getDefaultMessage() + ", "));
 
 		ErrorDto errorDto = new ErrorDto("050", msg.toString());
+		return new ResponseEntity<ErrorDto>(errorDto, HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(InventarioCampoException.class)
+	public ResponseEntity<ErrorDto> inventarioCampoExceptionHandler(InventarioCampoException ex) {
+		ErrorDto errorDto = new ErrorDto(ex.getCodigo(), ex.getMensaje());
 		return new ResponseEntity<ErrorDto>(errorDto, HttpStatus.BAD_REQUEST);
 	}
 
