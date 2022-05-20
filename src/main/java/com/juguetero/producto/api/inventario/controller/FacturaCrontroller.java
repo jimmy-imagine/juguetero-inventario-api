@@ -32,6 +32,7 @@ public class FacturaCrontroller {
 		PedidoDto facturaReq = new PedidoDto();
 		facturaReq.setNumeroPedido(request.getNroPedido());
 		facturaReq.setProveedor(request.getNombreProveedor());
+		facturaReq.setFecha(request.getFecha());
 
 		PedidoDto result = facturaService.crearFactura(facturaReq);
 
