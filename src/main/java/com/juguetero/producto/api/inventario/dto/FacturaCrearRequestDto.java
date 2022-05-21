@@ -13,12 +13,12 @@ public class FacturaCrearRequestDto {
 	@JsonProperty
 	@NotBlank
 	@NotNull(message = "campo obligatorio")
-	private String nombreProveedor;
+	private String proveedor;
 
 	@JsonProperty
 	@NotBlank
 	@NotNull(message = "campo obligatorio")
-	private String nroPedido;
+	private String numeroPedido;
 	
 	@JsonProperty
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT-05:00")
@@ -28,20 +28,20 @@ public class FacturaCrearRequestDto {
 	public FacturaCrearRequestDto() {
 	}
 
-	public String getNombreProveedor() {
-		return nombreProveedor;
+	public String getProveedor() {
+		return proveedor;
 	}
 
-	public void setNombreProveedor(String nombreProveedor) {
-		this.nombreProveedor = nombreProveedor;
+	public void setProveedor(String proveedor) {
+		this.proveedor = proveedor;
 	}
 
-	public String getNroPedido() {
-		return nroPedido;
+	public String getNumeroPedido() {
+		return numeroPedido;
 	}
 
-	public void setNroPedido(String nroPedido) {
-		this.nroPedido = nroPedido;
+	public void setNumeroPedido(String numeroPedido) {
+		this.numeroPedido = numeroPedido;
 	}
 
 	public Date getFecha() {

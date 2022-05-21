@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,12 +28,31 @@ public class FacturaCrontroller {
 	@Autowired
 	private IFacturaService facturaService;
 
+	@PutMapping(path = "{id}")
+	public ResponseEntity<PedidoDto> editarFactura(@PathVariable int id,
+			@Valid @RequestBody FacturaCrearRequestDto request) {
+		PedidoDto facturaReq = new PedidoDto();
+		facturaReq.setId(id);
+		facturaReq.setNumeroPedido(request.getNumeroPedido());
+		facturaReq.setProveedor(request.getProveedor());
+		facturaReq.setFecha(request.getFecha());
+
+		PedidoDto result = facturaService.editarFactura(facturaReq);
+		return new ResponseEntity<PedidoDto>(result, HttpStatus.OK);
+	}
+
+	@GetMapping(path = "{id}")
+	public ResponseEntity<PedidoDto> getById(@PathVariable Integer id) {
+		PedidoDto response = facturaService.obtenerFactura(id);
+		return new ResponseEntity<PedidoDto>(response, HttpStatus.OK);
+	}
+
 	@PostMapping
 	public ResponseEntity<PedidoDto> crearFactura(@Valid @RequestBody FacturaCrearRequestDto request) {
 
 		PedidoDto facturaReq = new PedidoDto();
-		facturaReq.setNumeroPedido(request.getNroPedido());
-		facturaReq.setProveedor(request.getNombreProveedor());
+		facturaReq.setNumeroPedido(request.getNumeroPedido());
+		facturaReq.setProveedor(request.getProveedor());
 		facturaReq.setFecha(request.getFecha());
 
 		PedidoDto result = facturaService.crearFactura(facturaReq);
